@@ -42,6 +42,25 @@
 
 <button></button>
 <script>
+  function logText(e) {
+    console.log(this.classList.value);
+    e.stopPropagation();  //stop bubbling up. only referring the div that's actually clicked
+  }
+
+  const divs = document.querySelectorAll('div');
+
+  divs.forEach(div => div.addEventListener('click', logText, {
+    //capture: true //running top-down, instead of bottom-up. if propagation stopped here, it will only show the top most level, regardless where you click
+    capture: false
+  }));
+
+  const button = document.querySelector('button');
+
+  button.addEventListener('click', function() {
+    console.log('click!!!');
+  }, {
+    once: true //listen to an event, and unbind itself. equivalent to removeEventListener(). only allowed to be clicked once!
+  });
 
 </script>
 </body>
